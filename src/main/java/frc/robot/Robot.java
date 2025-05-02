@@ -3,10 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import org.ironmaple.simulation.SimulatedArena;
 import org.littletonrobotics.urcl.URCL;
 
 import com.ctre.phoenix6.SignalLogger;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -248,6 +251,10 @@ public class Robot extends TimedRobot
   @Override
   public void simulationInit()
   {
+    SimulatedArena.getInstance();
+    SimulatedArena.getInstance().addGamePiece(new ReefscapeCoral(
+    new Pose2d(2, 2, Rotation2d.fromDegrees(90))));
+
   }
 
   /**
@@ -256,5 +263,6 @@ public class Robot extends TimedRobot
   @Override
   public void simulationPeriodic()
   {
+    SimulatedArena.getInstance().simulationPeriodic();
   }
 }
