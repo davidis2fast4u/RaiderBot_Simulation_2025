@@ -1,6 +1,6 @@
-Raider Bot 2025
+RaiderBot Simulation 2025
 
-Completed for comp.
+Is very much still in progress
 
     
 
