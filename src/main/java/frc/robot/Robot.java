@@ -259,7 +259,7 @@ public class Robot extends TimedRobot
   public void simulationInit()
   {
     SimulatedArena.getInstance();
-    SimulatedArena.getInstance().addGamePiece(new ReefscapeCoral(
+    SimulatedArena.getInstance().addGamePiece(new ReefscapeCoralOnField(
     new Pose2d(2, 2, Rotation2d.fromDegrees(90))));
 
   }
