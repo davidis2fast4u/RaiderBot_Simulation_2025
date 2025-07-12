@@ -16,7 +16,11 @@ import org.littletonrobotics.urcl.URCL;
 import com.ctre.phoenix6.SignalLogger;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -251,25 +255,32 @@ public class Robot extends TimedRobot
   public void testPeriodic()
   {
   }
-
+  
   /**
    * This function is called once when the robot is first started up.
    */
   @Override
   public void simulationInit()
   {
-    SimulatedArena.getInstance();
-    SimulatedArena.getInstance().addGamePiece(new ReefscapeCoralOnField(
-    new Pose2d(2, 2, Rotation2d.fromDegrees(90))));
-
+   
   }
 
   /**
    * This function is called periodically whilst in simulation.
    */
+  Pose3d poseA = new Pose3d();
+  Pose3d poseB = new Pose3d();
+
+  StructPublisher<Pose3d> publisher = NetworkTableInstance.getDefault()
+    .getStructTopic("MyPose", Pose3d.struct).publish();
+  StructArrayPublisher<Pose3d> arrayPublisher = NetworkTableInstance.getDefault()
+    .getStructArrayTopic("MyPoseArray", Pose3d.struct).publish();
   @Override
   public void simulationPeriodic()
   {
+    publisher.set(poseA);
+    arrayPublisher.set(new Pose3d[] {poseA, poseB});
     SimulatedArena.getInstance().simulationPeriodic();
   }
+
 }
